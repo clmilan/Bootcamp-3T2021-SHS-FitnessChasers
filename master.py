@@ -67,8 +67,8 @@ def main_menu ():
       # position of mouse
       mx, my = pygame.mouse.get_pos()
 
-      button_1 = pygame.Rect(140, 300, 200, 50)
-      button_2 = pygame.Rect(125, 400, 230, 50)
+      button_1 = pygame.Rect(140, 500, 200, 50)
+      button_2 = pygame.Rect(125, 600, 230, 50)
 
       if button_1.collidepoint((mx, my)):
          if click:
@@ -79,9 +79,9 @@ def main_menu ():
              options()
 
       pygame.draw.rect(screen, (14, 0, 68), button_1)
-      draw_text('START', font, (255,255,255), screen, 175, 305)
+      draw_text('START', font, (255,255,255), screen, 175, 505)
       pygame.draw.rect(screen, (14, 0, 68), button_2)
-      draw_text('OPTIONS', font, (255,255,255), screen, 145, 405)
+      draw_text('OPTIONS', font, (255,255,255), screen, 145, 605)
       
       click = False 
 
