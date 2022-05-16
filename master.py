@@ -4,8 +4,10 @@ from random import *
   
 # initializing the constructor 
 from pygame.locals import *
+
+#initialize the game
 pygame.init() 
-pygame.display.set_caption('FITNESS CHASERS')
+
 
 # screen resolution 
 res = (480,783) 
@@ -13,6 +15,16 @@ font = pygame.font.SysFont("League Spartan", 60)
   
 # opens up a window 
 screen = pygame.display.set_mode(res) 
+
+#bg
+background = pygame.image.load('background.png').convert()
+
+#caption and icon
+pygame.display.set_caption('FITNESS CHASERS')
+icon = pygame.image.load('background.png')
+pygame.display.set_icon(icon)
+
+
 
 # commented codes are for follow-up user interface improvements
 # aesthetics 
@@ -47,7 +59,10 @@ def main_menu ():
     while True: 
       # screen color and text * to be replaced by game logo
       screen.fill((255,255,255))
-      draw_text('FITNESS CHASERS', font, (0,0,0), screen, 50, 150)
+      #background image
+      screen.blit(background, (0, 0))
+
+     # draw_text('FITNESS CHASERS', font, (0,0,0), screen, 50, 150)
       # GameLogo = tkinter.PhotoImage(file ="images/{}" .format( "Fitness Chasers logo.gif"))
       # position of mouse
       mx, my = pygame.mouse.get_pos()
@@ -143,4 +158,3 @@ def options():
         pygame.display.update() 
 
 main_menu()
-
