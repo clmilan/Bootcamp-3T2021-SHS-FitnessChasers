@@ -51,8 +51,6 @@ def main_menu ():
       #background image
       screen.blit(background, (0, 0))
 
-     # draw_text('FITNESS CHASERS', font, (0,0,0), screen, 50, 150)
-      # GameLogo = tkinter.PhotoImage(file ="images/{}" .format( "Fitness Chasers logo.gif"))
       # position of mouse
       mx, my = pygame.mouse.get_pos()
 
