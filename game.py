@@ -1,7 +1,19 @@
+import pygame
 from tkinter import *
 from random import *
 import tkinter.messagebox
 
+# initializing the constructor 
+from pygame.locals import *
+
+#initialize the game
+pygame.init() 
+
+# screen resolution
+res = (480,783)
+
+# opens up a window 
+screen = pygame.display.set_mode(res) 
 
 class ScoreBoard():
     
@@ -21,10 +33,10 @@ class ScoreBoard():
         Label(self.parent, text="Score:", font=("Helvetica", 16, "bold")).grid(row=1, column=2, padx=35, pady=250, sticky=N+W)
         Label(self.parent, textvariable=self.scoreVar, font=("Helvetica", 16, "bold")).grid(row=1, column=2, padx=50, pady=300, sticky=N+W)        
         
-        # High score
-       # self.highScoreVar = IntVar()
-        # Label(self.parent, text="Highest Score:", font=("Helvetica", 16, "bold")).grid(row=1, column=2, padx=0, pady=400, sticky=N+W)
-        # Label(self.parent, textvariable=self.highScoreVar, font=("Helvetica", 16, "bold")).grid(row=1, column=2, padx=50, pady=450, sticky=N+W)
+        #High score
+        self.highScoreVar = IntVar()
+        Label(self.parent, text="Highest Score:", font=("Helvetica", 16, "bold")).grid(row=1, column=2, padx=0, pady=400, sticky=N+W)
+        Label(self.parent, textvariable=self.highScoreVar, font=("Helvetica", 16, "bold")).grid(row=1, column=2, padx=50, pady=450, sticky=N+W)
 
     def reset(self):
         self.lives = 3
@@ -33,16 +45,16 @@ class ScoreBoard():
         
         self.livesVar.set(self.lives)
         self.scoreVar.set(self.score)
-       #  self.highScoreVar.set(self.highScore)
+        self.highScoreVar.set(self.highScore)
 
-    # def loadScore(self):
-      #  with open("high-score.txt", "r") as data:
-        #     return int(data.read())                
+    def loadScore(self):
+        with open("high-score.txt", "r") as data:
+             return int(data.read())                
         
-    # def saveScore(self):
-      #  if self.score > self.highScore:
-       #     with open("high-score.txt", "w") as data:
-        #        data.write(str(self.score))
+    def saveScore(self):
+        if self.score > self.highScore:
+            with open("high-score.txt", "w") as data:
+                data.write(str(self.score))
         
     def gameOver(self):
         self.saveScore()
@@ -69,8 +81,8 @@ class ItemsFallingFromSky():
         self.xPosition = randint(50, 750)       # random position
         self.isgood = randint(0, 1)             # random goodness
         
-        self.goodItems = ["ananas.gif","apple.gif","orange.gif"]
-        self.badItems = ["candy1.gif","candy2.gif","lollypop.gif"]
+        self.goodItems = ["apple.gif","banana.gif","glass water.gif", "potato.gif", "tomato.gif"]
+        self.badItems = ["burger.gif","cheers.gif","fries.gif","pizza.gif"]
         
         # create falling items
         if self.isgood:   
@@ -120,8 +132,8 @@ class TheGame(ItemsFallingFromSky,ScoreBoard):
         self.parent = parent
         
         # windows form
-        self.parent.geometry("1024x650")
-        self.parent.title("G0t R3kT M8 ?")
+        # self.parent.geometry("1024x650")
+        # self.parent.title("G0t R3kT M8 ?")
 
         # canvas window
         self.canvas = Canvas(self.parent, width=800, height=600)
@@ -131,7 +143,7 @@ class TheGame(ItemsFallingFromSky,ScoreBoard):
         self.canvas.grid(row=1, column=1, padx=25, pady=25, sticky=W+N)
 
         # player character
-        self.playerPhoto = tkinter.PhotoImage(file = "images/{}" .format( "jew.gif" ) )
+        self.playerPhoto = tkinter.PhotoImage(file = "images/{}" .format( "basket.gif" ) )
         self.playerChar = self.canvas.create_image( (475, 560) , image=self.playerPhoto , tag="player" )
 
         # define score board
