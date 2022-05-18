@@ -1,19 +1,7 @@
-import pygame
 from tkinter import *
 from random import *
 import tkinter.messagebox
 
-# initializing the constructor 
-from pygame.locals import *
-
-#initialize the game
-pygame.init() 
-
-# screen resolution
-res = (480,783)
-
-# opens up a window 
-screen = pygame.display.set_mode(res) 
 
 class ScoreBoard():
     
@@ -144,7 +132,7 @@ class TheGame(ItemsFallingFromSky,ScoreBoard):
 
         # player character
         self.playerPhoto = tkinter.PhotoImage(file = "images/{}" .format( "basket.gif" ) )
-        self.playerChar = self.canvas.create_image( (475, 560) , image=self.playerPhoto , tag="player" )
+        self.playerChar = self.canvas.create_image( (480, 783) , image=self.playerPhoto , tag="player" )
 
         # define score board
         self.personalboard = ScoreBoard(self.parent)
