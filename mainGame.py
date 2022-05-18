@@ -1,15 +1,16 @@
 from sre_parse import HEXDIGITS
 import pygame, os
-
+from gameScene import *
 
 class Game:
     
     def __init__(self):
-        self.state = 'main_menu'
+        self.state = 'main_game'
         self.width = 480
         self.height = 713
         self.win = pygame.display.set_mode((self.width, self.height))
-    
+        self.init = False
+        self.game = Game()
 
     def run(self):
         
@@ -19,11 +20,9 @@ class Game:
             events = pygame.event.get()
                 
             if self.state == 'main_game':
-                game = MainGame()
-                game.mainGame(events)
+                self.game.mainGame()
             if self.state == 'main_menu':
-                menu = Menu()
-                menu.mainmenu(events)
+                self.menu.mainmenu(events)
 
         pygame.quit()
 
@@ -38,34 +37,18 @@ class Buttons(Game):
     def display(self):
         self.rect = self.image.get_rect(center=(self.pos_x, self.pos_y))
     
-class MainGame(Game):
+
     def __init__(self):
         super().__init__()
 
-    def mainGame(self):
-       return 
-        
-
-class Menu(Game):
-    def __init__(self):
-        super().__init__()
-
-    def mainmenu(self, events):
-        self.bg = pygame.image.load(os.path.join('mainsprites', 'background.png'))
-        self.win.blit(self.bg, (0, 0))
-
-
-        for event in events:
-            if event.type == pygame.KEYDOWN:
-                print('Clicked?')
-                if event.key == pygame.K_g:
-                    print('G CLicked')
-                    self.state = 'main_game'
-            for event in events:
-                if event.type == pygame.QUIT:
-                    running = False
-                    
-        pygame.display.update()
+    def mainGame(self, events):
+        print('Line 46')
+        if not self.init:
+            self.bg = pygame.image.load(os.path.join('mainsprites', 'green_background.png'))
+            self.win.blit(self.bg, (0, 0))
+            pygame.display.update()
+            self.init = True
+    
 
 game = Game()
 game.run()
