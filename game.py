@@ -136,7 +136,7 @@ class TheGame(ItemsFallingFromSky,ScoreBoard):
         # self.parent.title("G0t R3kT M8 ?")
 
         # canvas window
-        self.canvas = Canvas(self.parent, width=800, height=600)
+        self.canvas = Canvas(self.parent, width=480, height=783)
         self.canvas.config(background="#98D0E3")
         self.canvas.bind("<Key>", self.keyMoving)       # take keyboard input as movement
         self.canvas.focus_set()
