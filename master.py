@@ -1,5 +1,4 @@
 import pygame, sys 
-from tkinter import *
 from random import *
   
 # initializing the constructor 
