@@ -1,5 +1,4 @@
 import pygame, sys 
-from random import *
   
 # initializing the constructor 
 from pygame.locals import *
@@ -45,7 +44,6 @@ click = False
   
 def main_menu ():
     while True: 
-      # screen color and text * to be replaced by game logo
       screen.fill((255,255,255))
       #background image
       screen.blit(background, (0, 0))
