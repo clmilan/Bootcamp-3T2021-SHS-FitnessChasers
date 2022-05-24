@@ -43,7 +43,7 @@ def draw_text(text, font, color, surface, x, y):
 click = False
   
 def main_menu ():
-    while True: 
+    while True:  
       screen.fill((255,255,255))
       #background image
       screen.blit(background, (0, 0))
