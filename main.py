@@ -30,7 +30,6 @@ PIZZA = pygame.transform.scale(pygame.image.load(
 POTATO = pygame.transform.scale(pygame.image.load(
     os.path.join('fitness-chasers', 'potato.png')), (80, 80))
 
-
 TOAST = pygame.transform.scale(pygame.image.load(
     os.path.join('fitness-chasers', 'toast.png')), (80, 80))
 
