@@ -1,0 +1,46 @@
+import pygame
+from scene import *
+from scenemanager import sceneManager
+
+from pygame.locals import (
+    K_UP,
+    K_DOWN,
+    K_LEFT,
+    K_RIGHT,
+    K_ESCAPE,
+    KEYDOWN
+)
+
+# IMPORTANT: Always inherit from Scene
+class MainMenu(Scene):
+    def __init__(self):
+        # Load a font
+        self.font = pygame.font.SysFont('League Spartan', 32)
+        pass
+
+    def update(self, screen, pressed_keys, events):
+        # Load a text
+        self.text = self.font.render("Main Menu", True, (255,255,255))
+
+        # Set the text's position
+        textRect = self.text.get_rect()
+        textRect.center = (400,400)
+
+        # Initialize the screen with a color
+        screen.fill((135, 206, 250))
+
+        screen.blit(self.text, textRect)
+        # You want to put your code here
+
+        # Listen for button events
+
+        # Listen for key press
+
+        # Transition to other scenes
+        # Wait for keyboard events 
+        for event in events:
+            if event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    sceneManager.setActiveScene(1)
+                    pass
+        pass

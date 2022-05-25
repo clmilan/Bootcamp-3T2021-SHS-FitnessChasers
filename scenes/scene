@@ -1,0 +1,11 @@
+# Import the pygame module
+import pygame
+
+# This class represents a "Scene" or a "Level" in the game
+# It only serves as a base class for all your other scenes
+class Scene():
+    def __init__(self):
+        pass
+
+    def update(self, pressed_keys, events):
+        pass
