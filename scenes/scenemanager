@@ -1,0 +1,23 @@
+# Import the pygame module
+import pygame
+# Import the scene we'll be using
+from scene import *
+
+# This class manages what active scene is running
+class SceneManager():
+    def __init__(self):
+        pass
+    
+    def start(self):
+        pass
+
+    def update(self, screen, pressed_keys, events):
+        self.activeScene.update(screen, pressed_keys, events)
+        pass
+
+    def setActiveScene(self, index):
+        self.activeScene = self.scenes[index]
+        pass
+
+# Create a scene manager
+sceneManager = SceneManager()

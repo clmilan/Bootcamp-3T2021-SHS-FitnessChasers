@@ -1,0 +1,32 @@
+# This file is the main file we will run the game from
+
+# Import the pygame module
+import pygame
+# Import random for random numbers
+import random
+import time
+# import our SceneManager
+from scenemanager import *
+# Import all the scenes you have coded
+from mainmenu import *
+from gamescene import *
+from items import *
+pygame.font.init()
+
+
+# Import pygame.locals for easier access to key coordinates
+# Updated to conform to flake8 and black standards
+# from pygame.locals import *
+from pygame.locals import (
+    K_UP,
+    K_DOWN,
+    K_LEFT,
+    K_RIGHT,
+    K_ESCAPE,
+    KEYDOWN
+)
+
+WIDTH, HEIGHT = 460, 780
+WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption('LARO NILA MARENG CELYN TYAKA PARENG CARLOS')
+

@@ -1,0 +1,85 @@
+import pygame
+import os
+
+WIDTH, HEIGHT = 460, 780
+WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+
+# ======== LOAD IMAGES =========
+
+# ALL FOODS
+APPLE = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'apple.png')), (80, 80))
+
+BANANA = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'banana.png')), (80, 80))
+
+BURGER = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'burger.png')), (80, 80))
+
+FRIES = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'fries.png')), (80, 80))
+
+PIZZA = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'pizza.png')), (80, 80))
+
+POTATO = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'potato.png')), (80, 80))
+
+TOAST = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'toast.png')), (80, 80))
+
+TOMATO = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'ttomato.png')), (80, 80))
+
+WATER = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'water.png')), (80, 80))
+
+
+# BACKGROUND
+
+MAIN_MENU_BG = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'main_menu_bg.png')), (80, 80))
+
+MAIN_BG = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'background.jpg')), (WIDTH, HEIGHT))
+
+# PLAYER'S BASKET
+BASKET = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'basket.png')), (160, 130))
+
+class Items:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.item_img = None
+
+    def draw(self, window):
+        window.blit(self.item_img, (self.x, self.y))
+
+    def get_width(self):
+        return self.item_img.get_width()
+
+    def get_height(self):
+        return self.item_img.get_height()
+
+class Foods(Items):
+    FOOD_MAP = {
+        'apple': (APPLE),
+        'banana': (BANANA),
+        'burger': (BURGER),
+        'fries': (FRIES),
+        'pizza': (PIZZA),
+        'potato': (POTATO),
+        'toast': (TOAST),
+        'tomato': (TOMATO),
+        'water': (WATER)
+
+    }
+
+    def __init__(self, x, y, food):
+        super().__init__(x, y)
+        self.item_img = self.FOOD_MAP[food]
+        self.mask = pygame.mask.from_surface(self.item_img)
+
+    def move(self, speed):
+        self.y += speed
