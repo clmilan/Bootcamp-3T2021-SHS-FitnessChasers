@@ -1,11 +1,15 @@
+# from ossaudiodev import SNDCTL_COPR_RESET
+# from asyncio import run_coroutine_threadsafe
+from pygame import mixer
 import pygame
 import os
 import random
 import time
 pygame.font.init()
+pygame.init()
 
 
-WIDTH, HEIGHT = 460, 780
+WIDTH, HEIGHT = 460, 720
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('LARO NILA MARENG CELYN TYAKA PARENG CARLOS')
 
@@ -30,6 +34,7 @@ PIZZA = pygame.transform.scale(pygame.image.load(
 POTATO = pygame.transform.scale(pygame.image.load(
     os.path.join('fitness-chasers', 'potato.png')), (80, 80))
 
+
 TOAST = pygame.transform.scale(pygame.image.load(
     os.path.join('fitness-chasers', 'toast.png')), (80, 80))
 
@@ -43,7 +48,7 @@ WATER = pygame.transform.scale(pygame.image.load(
 # BACKGROUND
 
 MAIN_MENU_BG = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'main_menu_bg.png')), (80, 80))
+    os.path.join('fitness-chasers', 'main_menu_bg.png')), (WIDTH, HEIGHT))
 
 MAIN_BG = pygame.transform.scale(pygame.image.load(
     os.path.join('fitness-chasers', 'background.jpg')), (WIDTH, HEIGHT))
@@ -78,28 +83,36 @@ class Player(Items):
 
 class Foods(Items):
     FOOD_MAP = {
-        'apple': (APPLE),
+        'apple': (APPLE ),
         'banana': (BANANA),
-        'burger': (BURGER),
+        'burger': (BURGER), 
         'fries': (FRIES),
-        'pizza': (PIZZA),
+        'pizza': (PIZZA ),
         'potato': (POTATO),
         'toast': (TOAST),
         'tomato': (TOMATO),
-        'water': (WATER)
+        'water': (WATER) 
 
     }
 
     def __init__(self, x, y, food):
         super().__init__(x, y)
-        self.item_img = self.FOOD_MAP[food]
+        self.item_img, self.type = self.FOOD_MAP[food], self.FOOD_MAP[food]
         self.mask = pygame.mask.from_surface(self.item_img)
+        self.claimed = False
 
     def move(self, speed):
         self.y += speed
 
 
+def collide(obj1, obj2):
+    offset_x = obj2.x - obj1.x
+    offset_y = obj2.y - obj1.y
+    return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
+
 def main():
+    mixer.music.load(os.path.join('fitness-chasers', 'game_music.mp3'))
+    mixer.music.play(-1)
     running = True
     FPS = 60
     clock = pygame.time.Clock()
@@ -107,6 +120,8 @@ def main():
     speed = 5
     level = 0
     lives = 5
+    score = 0
+    multiplier = .1
 
     food = []
     lost = False
@@ -128,9 +143,11 @@ def main():
         # SHOW THE TEXT IN THE SCREEN
         level_label = main_font.render(f"Level: {level}", 1, (255, 255, 255))
         lives_label = main_font.render(f"Lives: {lives}", 1, (255, 255, 255))
+        score_label = main_font.render(f"Score: {score}", 1, (255, 255, 255))
 
         WIN.blit(lives_label, (10, 10))
         WIN.blit(level_label, (WIDTH - level_label.get_width() - 10, 10))
+        WIN.blit(score_label, (10, 50))
 
         # SHOW TEXT WHEN LOST
         if lost:
@@ -148,7 +165,7 @@ def main():
         pygame.display.update()
 
     while running:
-        # clock.tick(FPS)
+        clock.tick(FPS)
         draw_window()
 
         if lives <= 0:
@@ -158,6 +175,7 @@ def main():
         if lost:
             if lost_count > FPS * 3:
                 running = False
+                main_menu()
             else:
                 continue
 
@@ -168,7 +186,7 @@ def main():
             for i in range(food_sets):
                 enemy = Foods(random.randrange(50, WIDTH - 50),
                               random.randrange(-2000, -100), random.choice(food_choices))
-                time.sleep(2)
+                # pygame.time.set_timer(enemy, 2)
                 food.append(enemy)
 
         for event in pygame.event.get():
@@ -184,13 +202,43 @@ def main():
 
         for foods in food:
             foods.move(enemy_speed)
+
+            if collide(foods, player):
+                if foods.claimed == False:
+                    score += 10
+                    foods.claimed = True
+                    score *= multiplier
+                    multiplier += .2
+                    food.remove(foods)
+
             if foods.y + foods.get_height() > HEIGHT:
                 lives -= 1
+                
                 food.remove(foods)
+            
 
 
 def main_menu():
-    pass
+    mixer.music.load(os.path.join('fitness-chasers', 'default_music.mp3'))
+    mixer.music.play(-1)
+    running = True
 
+    def draw_window():
+        WIN.blit(MAIN_MENU_BG, (0, 0))
 
-main()
+        pygame.display.update()
+
+    while running:
+        draw_window()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_g:
+                    main()
+                    print('Letter G Was Pressed')
+
+    pygame.quit()
+
+main_menu()
