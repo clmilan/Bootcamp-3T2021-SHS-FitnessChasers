@@ -16,46 +16,53 @@ pygame.display.set_caption('LARO NILA MARENG CELYN TYAKA PARENG CARLOS')
 # ======== LOAD IMAGES =========
 
 # ALL FOODS
-APPLE = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'apple.png')), (80, 80))
+COCONUT = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'COCONUT.png')), (80, 80))
 
-BANANA = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'banana.png')), (80, 80))
+LECHE_FLAN = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'LECHE FLAN.png')), (80, 80))
 
-BURGER = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'burger.png')), (80, 80))
+PANCIT = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'PANCIT.png')), (80, 80))
 
-FRIES = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'fries.png')), (80, 80))
+SINIGANG = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'SINIGANG NA BANGUS.png')), (80, 80))
 
-PIZZA = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'pizza.png')), (80, 80))
+ZAGU = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'ZAGU.png')), (80, 80))
 
-POTATO = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'potato.png')), (80, 80))
+KWEK_KWEK = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'KWEK-KWEK.png')), (80, 80))
 
 
-TOAST = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'toast.png')), (80, 80))
+# TOAST = pygame.transform.scale(pygame.image.load(
+#     os.path.join('fitness-chasers', 'toast.png')), (80, 80))
 
-TOMATO = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'ttomato.png')), (80, 80))
+# TOMATO = pygame.transform.scale(pygame.image.load(
+#     os.path.join('fitness-chasers', 'ttomato.png')), (80, 80))
 
-WATER = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'water.png')), (80, 80))
+# WATER = pygame.transform.scale(pygame.image.load(
+#     os.path.join('fitness-chasers', 'water.png')), (80, 80))
 
 
 # BACKGROUND
 
 MAIN_MENU_BG = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'main_menu_bg.png')), (WIDTH, HEIGHT))
+    os.path.join('fitness-chasers', 'menu_bg.png')), (WIDTH, HEIGHT))
 
 MAIN_BG = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'background.jpg')), (WIDTH, HEIGHT))
+    os.path.join('fitness-chasers', 'bg.png')), (WIDTH, HEIGHT))
+
+MAIN_BG = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'bg.png')), (WIDTH, HEIGHT))
+
+LOGO = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'logo.png')), (350, 300))
+
 
 # PLAYER'S BASKET
 BASKET = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'basket.png')), (160, 130))
+    os.path.join('fitness-chasers', 'BASKET.png')), (160, 130))
 
 
 class Items:
@@ -83,15 +90,12 @@ class Player(Items):
 
 class Foods(Items):
     FOOD_MAP = {
-        'apple': (APPLE ),
-        'banana': (BANANA),
-        'burger': (BURGER), 
-        'fries': (FRIES),
-        'pizza': (PIZZA ),
-        'potato': (POTATO),
-        'toast': (TOAST),
-        'tomato': (TOMATO),
-        'water': (WATER) 
+        'COCONUT': (COCONUT),
+        'KWEK_KWEK': (KWEK_KWEK),
+        'LECHE_FLAN': (LECHE_FLAN),
+        'PANCIT': (PANCIT),
+        'SINIGANG': (SINIGANG),
+        'ZAGU': (ZAGU),
 
     }
 
@@ -109,6 +113,7 @@ def collide(obj1, obj2):
     offset_x = obj2.x - obj1.x
     offset_y = obj2.y - obj1.y
     return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
+
 
 def main():
     mixer.music.load(os.path.join('fitness-chasers', 'game_music.mp3'))
@@ -128,8 +133,8 @@ def main():
     food_sets = 5
     enemy_speed = 1
     lost_count = 0
-    food_choices = ['apple', 'banana', 'burger', 'fries',
-                    'pizza', 'potato', 'toast', 'tomato', 'water']
+    food_choices = ['COCONUT', 'KWEK_KWEK',
+                    'LECHE_FLAN', 'PANCIT', 'SINIGANG', 'ZAGU']
 
     main_font = pygame.font.SysFont('comicsans', 25)
     lost_font = pygame.font.SysFont('comicsans', 30)
@@ -155,8 +160,8 @@ def main():
             WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 350))
 
         # SHOW THE FOODS FALLING FROM THE TOP OF THE SCREEN
-        for foods in food:
-            foods.draw(WIN)
+        # for foods in food:
+        #     foods.draw(WIN)
 
         # SHOW THE BASKET ON THE SCREEN (REPRESENTING AS A PLAYER)
         player.draw(WIN)
@@ -168,6 +173,10 @@ def main():
         clock.tick(FPS)
         draw_window()
 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
         if lives <= 0:
             lost = True
             lost_count += 1
@@ -175,7 +184,6 @@ def main():
         if lost:
             if lost_count > FPS * 3:
                 running = False
-                main_menu()
             else:
                 continue
 
@@ -189,16 +197,18 @@ def main():
                 # pygame.time.set_timer(enemy, 2)
                 food.append(enemy)
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_RIGHT] and player.x + player.get_width() < WIDTH:
             player.x += speed
         if keys[pygame.K_LEFT] and player.x - speed > 0:
             player.x -= speed
+
+        # for foods in food:
+        #     foods.move(enemy_speed)
+            # if foods.y + foods.get_height() > HEIGHT:
+            #     lives -= 1
+            #     food.remove(foods)
 
         for foods in food:
             foods.move(enemy_speed)
@@ -213,20 +223,60 @@ def main():
 
             if foods.y + foods.get_height() > HEIGHT:
                 lives -= 1
-                
+
                 food.remove(foods)
-            
+
+    pygame.quit()
+
+
+class Button:
+    def __init__(self, x, y, img):
+        self.x = x
+        self.y = y
+        self.img = img
+        self.rect = self.img.get_rect(center=(self.x, self.y))
+
+    def draw_window(self, win, rect):
+        win.blit(self.img, (rect))
+
+    def check_click(self, pos):
+        self.pos = pos
+        self.clicked = False
+        if self.rect.colliderect(pos):
+            print(f"{self.name} was clicked")
 
 
 def main_menu():
-    mixer.music.load(os.path.join('fitness-chasers', 'default_music.mp3'))
-    mixer.music.play(-1)
+    buttons = []
     running = True
 
     def draw_window():
+        # SHOW THE BACKGROUND
         WIN.blit(MAIN_MENU_BG, (0, 0))
+        WIN.blit(LOGO, (50, 100))
 
+        START = pygame.transform.scale(pygame.image.load(
+            os.path.join('fitness-chasers', 'start_btn.png')), (190, 90))
+
+        QUIT = pygame.transform.scale(pygame.image.load(
+            os.path.join('fitness-chasers', 'quit_btn.png')), (190, 90))
+
+        # SHOW BUTTON
+        START_BTN = Button(230, 450, START)
+        QUIT_BTN = Button(230, 600, QUIT)
+
+        buttons = [START_BTN, QUIT_BTN]
+        for items in buttons:
+            WIN.blit(items.img, items.rect)
+
+        # SHOW THE TEXT TO THE SCREEN
         pygame.display.update()
+
+    pygame.quit()
+
+    # mixer.music.load(os.path.join('fitness-chasers', 'default_music.mp3'))
+    # mixer.music.play(-1)
+    running = True
 
     while running:
         draw_window()
@@ -239,6 +289,12 @@ def main_menu():
                     main()
                     print('Letter G Was Pressed')
 
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                for items in buttons:
+                    print(items.name)
+
     pygame.quit()
+
 
 main_menu()
