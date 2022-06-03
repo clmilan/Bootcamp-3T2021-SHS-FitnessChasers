@@ -71,35 +71,35 @@ QUIT = pygame.transform.scale(pygame.image.load(
 
 # GAME OVER SPRITES
 BUKO_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'BUKO_GO.png')), (360, 460))
+            os.path.join('SPRITES_GAME OVER', 'BUKO_GO.png')), (WIDTH, HEIGHT))
 
 CHICHARON_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'CHICHARON_GO.png')), (360, 460))
+            os.path.join('SPRITES_GAME OVER', 'CHICHARON_GO.png')), (WIDTH, HEIGHT))
 
 
 CHOPSUEY_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'CHOPSUEY_GO.png')), (360, 460))
+            os.path.join('SPRITES_GAME OVER', 'CHOPSUEY_GO.png')), (WIDTH, HEIGHT))
 
 KWEK_KWEK_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'KWEK KWEK_GO.png')), (360, 460))
+            os.path.join('SPRITES_GAME OVER', 'KWEK KWEK_GO.png')), (WIDTH, HEIGHT))
 
 LECHE_FLAN_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'LECHE FLAN_GO.png')), (360, 460))
+            os.path.join('SPRITES_GAME OVER', 'LECHE FLAN_GO.png')), (WIDTH, HEIGHT))
 
 LUMPIANG_SARIWA_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'LUMPIANG SARIWA_GO.png')), (360, 460))
+            os.path.join('SPRITES_GAME OVER', 'LUMPIANG SARIWA_GO.png')), (WIDTH, HEIGHT))
 
 MANGGA_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'MANGGA_GO.png')), (360, 460))
+            os.path.join('SPRITES_GAME OVER', 'MANGGA_GO.png')), (WIDTH, HEIGHT))
 
 PANCIT_BIHON_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'PANCIT BIHON_GO.png')), (360, 460))
-        
+            os.path.join('SPRITES_GAME OVER', 'PANCIT BIHON_GO.png')), (WIDTH, HEIGHT))
+         
 SINIGANG_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'SINIGANG_GO.png')), (360, 460))
+            os.path.join('SPRITES_GAME OVER', 'SINIGANG_GO.png')), (WIDTH, HEIGHT))
 
 ZAGU_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'ZAGU_GO.png')), (360, 460))
+            os.path.join('SPRITES_GAME OVER', 'ZAGU_GO.png')), (WIDTH, HEIGHT))
 
 # PLAYER'S BASKET
 BASKET = pygame.transform.scale(pygame.image.load(
@@ -195,7 +195,7 @@ class Food_Game_Over:
         self.isShowed = False
     
     def draw(self, win):
-        win.blit(self.item_img, (40, 60))
+        win.blit(self.item_img, (0, 0)) 
 
 
 def collide(obj1, obj2):
@@ -226,7 +226,7 @@ def main():
                     'LECHE_FLAN', 'PANCIT_BIHON', 'SINIGANG', 'ZAGU']
     food_choice = ['COCONUT', "KWEK_KWEK", "LECHE_FLAN", 'PANCIT', 'SINIGANG', 'ZAGU']
 
-    game_over_init = False
+    
     game_over_img = []
 
     main_font = pygame.font.SysFont('comicsans', 25)
@@ -235,6 +235,7 @@ def main():
     player = Player(230, 580)
 
     def draw_window():
+        game_over_init = False 
         # SHOW THE MAIN GAME BACKGROUND
         WIN.blit(MAIN_BG, (0, 0))
 
@@ -257,12 +258,18 @@ def main():
             foods.draw(WIN)
 
         if lost:
-            for items in game_over_img:
-                items.draw(WIN)
+            for item in game_over_img:
+                if not game_over_init: 
+                    item.draw(WIN)
+                    game_over_init = True
+
+        ['COCONUT', 'KWEK_KWEK', 'CHICHARON', 'LUMPIANG_SARIWA',
+                    'LECHE_FLAN', 'PANCIT_BIHON', 'SINIGANG', 'ZAGU']
+        
 
         # SHOW THE BASKET ON THE SCREEN (REPRESENTING AS A PLAYER)
         player.draw(WIN)
-        ['COCOCNUT', "KWEK_KWEK", "LECHE_FLAN", 'PANCIT', 'SINIGANG', 'ZAGU']
+        # ['COCOCNUT', "KWEK_KWEK", "LECHE_FLAN", 'PANCIT', 'SINIGANG', 'ZAGU']
 
         # IT WILL UPDATE THE SCREEN
         pygame.display.update()
@@ -281,23 +288,18 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        if lives <= 0:
+        if lives <= 4:
             lost = True
-            lost_count += 1
+            lost_count += 1 
  
         if lost:
-            if lost_count > FPS * 3:
-                for i in game_over_img and not game_over_init:
+            go_img = Food_Game_Over(random.choice(food_choices))
 
-                    food_game_over = Food_Game_Over(random.choice(food_choices))
-                    game_over_img.append(food_game_over)
-                    game_over_init = True
-                running = False
-                
+            game_over_img.append(go_img)
                  
-            else:
-                continue
-
+            
+                 
+            
         if len(food) == 0:
             level += 1 
             enemy_speed += .6
