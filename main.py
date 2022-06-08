@@ -3,7 +3,7 @@
 from pygame import mixer
 import pygame
 import os
-import random 
+import random
 import time
 pygame.font.init()
 pygame.init()
@@ -13,28 +13,28 @@ WIDTH, HEIGHT = 460, 720
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('LARO NILA MARENG CELYN TYAKA PARENG CARLOS')
 
-# ======== LOAD IMAGES ========= 
+# ======== LOAD IMAGES =========
 
 # ALL FOODS
 COCONUT = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'COCONUT.png')), (80, 80))
+    os.path.join('fitness-chasers', 'COCONUT.png')), (60, 60))
 
 LECHE_FLAN = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'LECHE FLAN.png')), (80, 80))
+    os.path.join('fitness-chasers', 'LECHE FLAN.png')), (60, 60))
 
 PANCIT = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'PANCIT.png')), (80, 80))
+    os.path.join('fitness-chasers', 'PANCIT.png')), (60, 60))
 
 SINIGANG = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'SINIGANG NA BANGUS.png')), (80, 80))
+    os.path.join('fitness-chasers', 'SINIGANG NA BANGUS.png')), (60, 60))
 
 ZAGU = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'ZAGU.png')), (80, 80))
+    os.path.join('fitness-chasers', 'ZAGU.png')), (60, 60))
 
 KWEK_KWEK = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'KWEK-KWEK.png')), (80, 80))
+    os.path.join('fitness-chasers', 'KWEK-KWEK.png')), (60, 60))
 
- 
+
 # TOAST = pygame.transform.scale(pygame.image.load(
 #     os.path.join('fitness-chasers', 'toast.png')), (80, 80))
 
@@ -61,49 +61,47 @@ LOGO = pygame.transform.scale(pygame.image.load(
 
 # BUTTONS
 START = pygame.transform.scale(pygame.image.load(
-            os.path.join('fitness-chasers', 'start_btn.png')), (190, 90))
+    os.path.join('fitness-chasers', 'start_btn.png')), (190, 90))
 
 QUIT = pygame.transform.scale(pygame.image.load(
-            os.path.join('fitness-chasers', 'quit_btn.png')), (190, 90))
-
-
+    os.path.join('fitness-chasers', 'quit_btn.png')), (190, 90))
 
 
 # GAME OVER SPRITES
 BUKO_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'BUKO_GO.png')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES_GAME OVER', 'BUKO_GO.jpg')), (WIDTH, HEIGHT))
 
 CHICHARON_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'CHICHARON_GO.png')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES_GAME OVER', 'CHICHARON_GO.jpg')), (WIDTH, HEIGHT))
 
 
 CHOPSUEY_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'CHOPSUEY_GO.png')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES_GAME OVER', 'CHOPSUEY_GO.jpg')), (WIDTH, HEIGHT))
 
 KWEK_KWEK_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'KWEK KWEK_GO.png')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES_GAME OVER', 'KWEK KWEK_GO.jpg')), (WIDTH, HEIGHT))
 
 LECHE_FLAN_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'LECHE FLAN_GO.png')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES_GAME OVER', 'LECHE FLAN_GO.jpg')), (WIDTH, HEIGHT))
 
 LUMPIANG_SARIWA_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'LUMPIANG SARIWA_GO.png')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES_GAME OVER', 'LUMPIANG SARIWA_GO.jpg')), (WIDTH, HEIGHT))
 
 MANGGA_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'MANGGA_GO.png')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES_GAME OVER', 'MANGGA_GO.jpg')), (WIDTH, HEIGHT))
 
 PANCIT_BIHON_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'PANCIT BIHON_GO.png')), (WIDTH, HEIGHT))
-         
+    os.path.join('SPRITES_GAME OVER', 'PANCIT BIHON_GO.jpg')), (WIDTH, HEIGHT))
+
 SINIGANG_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'SINIGANG_GO.png')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES_GAME OVER', 'SINIGANG_GO.jpg')), (WIDTH, HEIGHT))
 
 ZAGU_GO = pygame.transform.scale(pygame.image.load(
-            os.path.join('SPRITES_GAME OVER', 'ZAGU_GO.png')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES_GAME OVER', 'ZAGU_GO.jpg')), (WIDTH, HEIGHT))
 
 # PLAYER'S BASKET
 BASKET = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'BASKET.png')), (160, 130))
+    os.path.join('fitness-chasers', 'BASKET.png')), (100, 80))
 
 
 class Items:
@@ -113,6 +111,7 @@ class Items:
         self.item_img = None
 
     def draw(self, window):
+
         window.blit(self.item_img, (self.x, self.y))
 
     def get_width(self):
@@ -133,32 +132,31 @@ class Foods(Items):
     FOOD_MAP = {
         'COCONUT': {
             'img': COCONUT,
-            'type':'good'
-        } ,
+            'type': 'good'
+        },
         'KWEK_KWEK': {
             'img': KWEK_KWEK,
             'type': 'bad'
-        } ,
+        },
 
         'LECHE_FLAN': {
             'img': LECHE_FLAN,
             'type': 'bad'
-        } ,
+        },
         'PANCIT': {
             'img': PANCIT,
             'type': 'good'
-        } ,
+        },
         'SINIGANG': {
             'img': SINIGANG,
             'type': 'good'
-        } ,
+        },
         'ZAGU': {
             'img': ZAGU,
             'type': 'bad'
-        } ,
+        },
 
     }
-    
 
     def __init__(self, x, y, food):
         super().__init__(x, y)
@@ -174,7 +172,7 @@ class Foods(Items):
         self.y += speed
 
 
-class Food_Game_Over: 
+class Food_Game_Over:
     FOOD_MAP = {
         'COCONUT': (BUKO_GO),
         'CHICHARON': (CHICHARON_GO),
@@ -190,12 +188,31 @@ class Food_Game_Over:
     }
 
     def __init__(self, food):
-        self.item_img = self.FOOD_MAP[food] 
+        self.item_img = self.FOOD_MAP[food]
         self.mask = pygame.mask.from_surface(self.item_img)
         self.isShowed = False
-    
+
     def draw(self, win):
-        win.blit(self.item_img, (0, 0)) 
+        win.blit(self.item_img, (0, 0))
+
+
+class Button:
+    def __init__(self, x, y, img, name):
+        self.x = x
+        self.y = y
+        self.name = name
+        self.img = img
+        self.rect = self.img.get_rect(center=(self.x, self.y))
+
+    def draw_window(self, win, rect):
+        win.blit(self.img, (rect))
+
+    def check_click(self, pos):
+        self.pos = pos
+        self.clicked = False
+        if self.rect.collidepoint(pos):
+            self.clicked = True
+            return self.clicked
 
 
 def collide(obj1, obj2):
@@ -218,54 +235,44 @@ def main():
     multiplier = .1
 
     food = []
+    bad_food = []
     lost = False
-    food_sets = 5
-    enemy_speed = 1
+    food_sets = 2
+    enemy_speed = .4
     lost_count = 0
-    food_choices = ['COCONUT', 'KWEK_KWEK', 'CHICHARON', 'LUMPIANG_SARIWA',
-                    'LECHE_FLAN', 'PANCIT_BIHON', 'SINIGANG', 'ZAGU']
-    food_choice = ['COCONUT', "KWEK_KWEK", "LECHE_FLAN", 'PANCIT', 'SINIGANG', 'ZAGU']
+    # food_choices = ['COCONUT', 'KWEK_KWEK', 'CHICHARON', 'LUMPIANG_SARIWA',
+    #                 'LECHE_FLAN', 'PANCIT_BIHON', 'SINIGANG', 'ZAGU']
+    food_choice = ['COCONUT',
+                   'PANCIT', 'SINIGANG', ]
 
-    
-    game_over_img = []
+    bad_food_choice = ["LECHE_FLAN", 'ZAGU', "KWEK_KWEK"]
 
     main_font = pygame.font.SysFont('comicsans', 25)
     lost_font = pygame.font.SysFont('comicsans', 30)
 
-    player = Player(230, 580)
+    player = Player(230, 600)
 
     def draw_window():
-        game_over_init = False 
+        game_over_init = False
         # SHOW THE MAIN GAME BACKGROUND
         WIN.blit(MAIN_BG, (0, 0))
 
         # SHOW THE TEXT IN THE SCREEN
         level_label = main_font.render(f"Level: {level}", 1, (255, 255, 255))
         lives_label = main_font.render(f"Lives: {lives}", 1, (255, 255, 255))
-        score_label = main_font.render(f"Score: {round(score, 1)}", 1, (255, 255, 255))
+        score_label = main_font.render(
+            f"Score: {round(score, 1)}", 1, (255, 255, 255))
 
         WIN.blit(lives_label, (10, 10))
         WIN.blit(level_label, (WIDTH - level_label.get_width() - 10, 10))
         WIN.blit(score_label, (10, 50))
 
-        # SHOW TEXT WHEN LOST
-        # if lost:
-        #     lost_label = lost_font.render('You LOST!', 1, (255, 0, 0))
-        #     WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 350))
-
         # SHOW THE FOODS FALLING FROM THE TOP OF THE SCREEN
+        for bad_fud in bad_food:
+            bad_fud.draw(WIN)
+
         for foods in food:
             foods.draw(WIN)
-
-        if lost:
-            for item in game_over_img:
-                if not game_over_init: 
-                    item.draw(WIN)
-                    game_over_init = True
-
-        ['COCONUT', 'KWEK_KWEK', 'CHICHARON', 'LUMPIANG_SARIWA',
-                    'LECHE_FLAN', 'PANCIT_BIHON', 'SINIGANG', 'ZAGU']
-        
 
         # SHOW THE BASKET ON THE SCREEN (REPRESENTING AS A PLAYER)
         player.draw(WIN)
@@ -273,12 +280,6 @@ def main():
 
         # IT WILL UPDATE THE SCREEN
         pygame.display.update()
-
-    def game_over():
-     
-        
-
-       pass
 
     while running:
         clock.tick(FPS)
@@ -290,26 +291,27 @@ def main():
 
         if lives <= 4:
             lost = True
-            lost_count += 1 
- 
-        if lost:
-            go_img = Food_Game_Over(random.choice(food_choices))
+            lost_count += 1
 
-            game_over_img.append(go_img)
-                 
-            
-                 
-            
         if len(food) == 0:
-            level += 1 
-            enemy_speed += .6
-            food_sets += 3
-            for i in range(food_sets):
-                enemy = Foods(random.randrange(50, WIDTH - 50),
-                              random.randrange(-2000, -100), random.choice(food_choice))
-                # pygame.time.set_timer(enemy, 2)
-           
-                food.append(enemy)
+            level += 1
+            enemy_speed += .2
+            food_sets += 1
+            for i in range(3):
+                good_food = Foods(random.randrange(50, WIDTH - 50),
+                                  random.randrange(-4000, -100), random.choice(food_choice))
+
+                if time.time() > 50000:
+
+                    food.append(good_food)
+
+            for i in range(3):
+                for i in range(food_sets):
+                    bad = Foods(random.randrange(50, WIDTH - 50),
+                                random.randrange(-5000, -100), random.choice(bad_food_choice))
+
+                    if time.time() > 50000:
+                        bad_food.append(bad)
 
         keys = pygame.key.get_pressed()
 
@@ -325,13 +327,14 @@ def main():
                 food.remove(foods)
 
         for foods in food:
+
             foods.move(enemy_speed)
 
             if collide(foods, player):
                 if foods.claimed == False:
                     score += 10
                     foods.claimed = True
-                    score *= multiplier
+
                     multiplier += .2
                     food.remove(foods)
 
@@ -340,26 +343,18 @@ def main():
 
                 food.remove(foods)
 
+        for badfoods in bad_food:
+
+            badfoods.move(enemy_speed + .9)
+            if collide(badfoods, player):
+                lives -= 1
+
+                bad_food.remove(badfoods)
+
+        if lost:
+            game_over()
+
     pygame.quit()
-
-
-class Button:
-    def __init__(self, x, y, img, name):
-        self.x = x
-        self.y = y
-        self.name = name
-        self.img = img
-        self.rect = self.img.get_rect(center=(self.x, self.y))
-
-    def draw_window(self, win, rect):
-        win.blit(self.img, (rect))
-
-    def check_click(self, pos):
-        self.pos = pos
-        self.clicked = False
-        if self.rect.collidepoint(pos):
-            self.clicked = True
-            return self.clicked
 
 
 def main_menu():
@@ -369,40 +364,70 @@ def main_menu():
     # mixer.music.play(-1)
 
     WIN.blit(MAIN_MENU_BG, (0, 0))
-    WIN.blit(LOGO, (50, 100)) 
+    WIN.blit(LOGO, (50, 100))
 
-    START_BTN = Button(230, 450, START, 'start') 
+    START_BTN = Button(230, 450, START, 'start')
     QUIT_BTN = Button(230, 600, QUIT, 'quit')
 
     buttons = [START_BTN, QUIT_BTN]
     for items in buttons:
         items.draw_window(WIN, items.rect)
 
-
-
     while running:
-        
+
         # SHOW BUTTON
-       
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
-            
-
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
                 start = buttons[0].check_click(pos)
-                quit = buttons[1].check_click(pos)
+                quitted = buttons[1].check_click(pos)
                 if start:
                     main()
-                if quit:
+                if quitted:
                     quit()
-                    
-        
+
         pygame.display.update()
 
     pygame.quit()
 
 
-main_menu()
+def game_over():
+    running = True
+    lost = False
+   
+
+    def draw_window():
+        game_over_init = False
+        WIN.blit(MAIN_MENU_BG, (0, 0))
+        WIN.blit(LOGO, (50, 100))
+
+        # for item in game_over_img:
+        if not game_over_init:
+            print('Should Run Once')
+            # img_avail = random.choice(game_over_img)
+            # WIN.blit(img_avail.item_img, (0, 0))
+            game_over_init = True
+        pygame.display.update()
+    while running:
+        draw_window()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+
+    print('GGame over State')
+    # game_over_img = []
+    # go_img = Food_Game_Over(random.choice(food_choices))
+    # game_over_img.append(go_img)
+
+
+# main_menu()
+game_over()
+# import random
+
+# list1 = ['aser', 'james', 'hubero', 'carlos', 'celyn', 'mauie']
+
+# print(random.choice(list1))

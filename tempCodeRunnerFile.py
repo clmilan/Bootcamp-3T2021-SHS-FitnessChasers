@@ -1,1 +1,2 @@
-x
+
+        player.draw(WIN)
