@@ -412,17 +412,21 @@ def game_over():
             game_over_img.append(go_img)
 
             if not game_over_init:
-                print('Should Run Once')
+
                 img_avail = random.choice(game_over_img)
                 WIN.blit(img_avail.item_img, (0, 0))
-                print(img_avail.item_img)
+
                 game_over_init = True
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_x:
+                    main()
 
         pygame.display.update()
 
 
-# main_menu()
-game_over()
+main_menu()
+# game_over()
 # import random
 
 # list1 = ['aser', 'james', 'hubero', 'carlos', 'celyn', 'mauie']
