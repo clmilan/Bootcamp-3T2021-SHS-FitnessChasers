@@ -69,35 +69,35 @@ QUIT = pygame.transform.scale(pygame.image.load(
 
 # GAME OVER SPRITES
 BUKO_GO = pygame.transform.scale(pygame.image.load(
-    os.path.join('SPRITES_GAME OVER', 'BUKO_GO.jpg')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES GAME OVER', 'BUKO_GO.jpg')), (WIDTH, HEIGHT))
 
 CHICHARON_GO = pygame.transform.scale(pygame.image.load(
-    os.path.join('SPRITES_GAME OVER', 'CHICHARON_GO.jpg')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES GAME OVER', 'CHICHARON_GO.jpg')), (WIDTH, HEIGHT))
 
 
 CHOPSUEY_GO = pygame.transform.scale(pygame.image.load(
-    os.path.join('SPRITES_GAME OVER', 'CHOPSUEY_GO.jpg')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES GAME OVER', 'CHOPSUEY_GO.jpg')), (WIDTH, HEIGHT))
 
 KWEK_KWEK_GO = pygame.transform.scale(pygame.image.load(
-    os.path.join('SPRITES_GAME OVER', 'KWEK KWEK_GO.jpg')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES GAME OVER', 'KWEK KWEK_GO.jpg')), (WIDTH, HEIGHT))
 
 LECHE_FLAN_GO = pygame.transform.scale(pygame.image.load(
-    os.path.join('SPRITES_GAME OVER', 'LECHE FLAN_GO.jpg')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES GAME OVER', 'LECHE FLAN_GO.jpg')), (WIDTH, HEIGHT))
 
 LUMPIANG_SARIWA_GO = pygame.transform.scale(pygame.image.load(
-    os.path.join('SPRITES_GAME OVER', 'LUMPIANG SARIWA_GO.jpg')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES GAME OVER', 'LUMPIANG SARIWA_GO.jpg')), (WIDTH, HEIGHT))
 
 MANGGA_GO = pygame.transform.scale(pygame.image.load(
-    os.path.join('SPRITES_GAME OVER', 'MANGGA_GO.jpg')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES GAME OVER', 'MANGGA_GO.jpg')), (WIDTH, HEIGHT))
 
 PANCIT_BIHON_GO = pygame.transform.scale(pygame.image.load(
-    os.path.join('SPRITES_GAME OVER', 'PANCIT BIHON_GO.jpg')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES GAME OVER', 'PANCIT BIHON_GO.jpg')), (WIDTH, HEIGHT))
 
 SINIGANG_GO = pygame.transform.scale(pygame.image.load(
-    os.path.join('SPRITES_GAME OVER', 'SINIGANG_GO.jpg')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES GAME OVER', 'SINIGANG_GO.jpg')), (WIDTH, HEIGHT))
 
 ZAGU_GO = pygame.transform.scale(pygame.image.load(
-    os.path.join('SPRITES_GAME OVER', 'ZAGU_GO.jpg')), (WIDTH, HEIGHT))
+    os.path.join('SPRITES GAME OVER', 'ZAGU_GO.jpg')), (WIDTH, HEIGHT))
 
 # PLAYER'S BASKET
 BASKET = pygame.transform.scale(pygame.image.load(
@@ -240,8 +240,7 @@ def main():
     food_sets = 2
     enemy_speed = .4
     lost_count = 0
-    # food_choices = ['COCONUT', 'KWEK_KWEK', 'CHICHARON', 'LUMPIANG_SARIWA',
-    #                 'LECHE_FLAN', 'PANCIT_BIHON', 'SINIGANG', 'ZAGU']
+
     food_choice = ['COCONUT',
                    'PANCIT', 'SINIGANG', ]
 
@@ -398,30 +397,28 @@ def main_menu():
 def game_over():
     running = True
     lost = False
-   
+    game_over_img = []
+    food_choices = ['COCONUT', 'KWEK_KWEK', 'CHICHARON', 'LUMPIANG_SARIWA',
+                    'LECHE_FLAN', 'PANCIT_BIHON', 'SINIGANG', 'ZAGU']
+    game_over_init = False
 
-    def draw_window():
-        game_over_init = False
-        WIN.blit(MAIN_MENU_BG, (0, 0))
-        WIN.blit(LOGO, (50, 100))
-
-        # for item in game_over_img:
-        if not game_over_init:
-            print('Should Run Once')
-            # img_avail = random.choice(game_over_img)
-            # WIN.blit(img_avail.item_img, (0, 0))
-            game_over_init = True
-        pygame.display.update()
     while running:
-        draw_window()
+        # WIN.blit(MAIN_MENU_BG, (0, 0))
+        # WIN.blit(LOGO, (50, 100))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
+            go_img = Food_Game_Over(random.choice(food_choices))
+            game_over_img.append(go_img)
 
-    print('GGame over State')
-    # game_over_img = []
-    # go_img = Food_Game_Over(random.choice(food_choices))
-    # game_over_img.append(go_img)
+            if not game_over_init:
+                print('Should Run Once')
+                img_avail = random.choice(game_over_img)
+                WIN.blit(img_avail.item_img, (0, 0))
+                print(img_avail.item_img)
+                game_over_init = True
+
+        pygame.display.update()
 
 
 # main_menu()
