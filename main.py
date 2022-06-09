@@ -288,7 +288,7 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        if lives <= 4:
+        if lives <= 0:
             lost = True
             lost_count += 1
 
