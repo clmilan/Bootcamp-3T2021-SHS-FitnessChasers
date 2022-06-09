@@ -9,30 +9,41 @@ pygame.font.init()
 pygame.init()
 
 
+logo = pygame.image.load(os.path.join('Start Up ELements', 'Kaon Ta Logo-2.png')) 
 WIDTH, HEIGHT = 460, 720
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption('LARO NILA MARENG CELYN TYAKA PARENG CARLOS')
-
+pygame.display.set_caption('KAON TA!!')
+pygame.display.set_icon(logo)
 # ======== LOAD IMAGES =========
 
 # ALL FOODS
 COCONUT = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'COCONUT.png')), (60, 60))
+    os.path.join('fitness-chasers', 'COCONUT.png')), (45, 45))
 
 LECHE_FLAN = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'LECHE FLAN.png')), (60, 60))
+    os.path.join('fitness-chasers', 'LECHE FLAN.png')), (45, 45))
 
 PANCIT = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'PANCIT.png')), (60, 60))
+    os.path.join('fitness-chasers', 'PANCIT.png')), (45, 45))
 
 SINIGANG = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'SINIGANG NA BANGUS.png')), (60, 60))
+    os.path.join('fitness-chasers', 'SINIGANG NA BANGUS.png')), (45, 45))
 
 ZAGU = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'ZAGU.png')), (60, 60))
+    os.path.join('fitness-chasers', 'ZAGU.png')), (45, 45))
 
 KWEK_KWEK = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'KWEK-KWEK.png')), (60, 60))
+    os.path.join('fitness-chasers', 'KWEK-KWEK.png')), (45, 45))
+
+CHICHARON= pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'CHICHARON.png')), (45, 45) )
+
+CHOPSUEY= pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'CHOPSUEY.png')), (45, 45))
+
+MANGO = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'MANGO.png')), (45, 45))
+
 
 
 # TOAST = pygame.transform.scale(pygame.image.load(
@@ -155,12 +166,30 @@ class Foods(Items):
             'img': ZAGU,
             'type': 'bad'
         },
+        'CHICHARON': {
+            'img': CHICHARON,
+            'type': 'bad'
+        },
+        'CHOPSUEY': {
+            'img': CHOPSUEY,
+            'type': 'bad'
+        },
+        'MANGO': {
+            'img': MANGO,
+            'type': 'bad'
+        },
 
     }
-
-    def __init__(self, x, y, food):
+    # YUNG TATLONG ARGUMENTS, NAKA RANDOM LAHAT
+    def __init__(self, x, y, food_choice):
         super().__init__(x, y)
-        self.item_img, self.type = self.FOOD_MAP[food]['img'], self.FOOD_MAP[food]['type']
+        # Get the image from random food choice.
+
+        #  CHINECHECK NG "FOOD VARIABLE (WHICH IS YUNG RANDOM)" YUNG FOODMAP
+        #  NAKADEPENDE SA FOOD VARIABLE KUNG ANO YUNG LALABAS NA PICTURE
+        #  FOR EXAMPLE, MANGO YUNG NAKUHA, 
+
+        self.item_img, self.type = self.FOOD_MAP[food_choice]['img'], self.FOOD_MAP[food_choice]['type']
         self.mask = pygame.mask.from_surface(self.item_img)
         self.claimed = False
 
@@ -228,28 +257,30 @@ def main():
     FPS = 60
     clock = pygame.time.Clock()
 
-    speed = 5
+    speed = 7
     level = 0
     lives = 5
     score = 0
-    multiplier = .1
 
+    # set ng array for later purposes
     food = []
+
+
     bad_food = []
     lost = False
     food_sets = 2
-    enemy_speed = .4
+    enemy_speed = .6
     lost_count = 0
 
     food_choice = ['COCONUT',
-                   'PANCIT', 'SINIGANG', ]
+                   'PANCIT', 'SINIGANG', 'CHICHARON', 'MANGO', 'CHOPSUEY'] 
 
-    bad_food_choice = ["LECHE_FLAN", 'ZAGU', "KWEK_KWEK"]
+    bad_food_choice = ["LECHE_FLAN", 'ZAGU', "KWEK_KWEK", "CHICHARON", ]
 
     main_font = pygame.font.SysFont('comicsans', 25)
-    lost_font = pygame.font.SysFont('comicsans', 30)
+ 
 
-    player = Player(230, 600)
+    player = Player(230, 640)
 
     def draw_window():
         game_over_init = False
@@ -292,25 +323,61 @@ def main():
             lost = True
             lost_count += 1
 
+
+
+
+
+
+
+
+
+
+            # # ['COCONUT',
+            #        'PANCIT', 'SINIGANG', 'CHICHARON', 'MANGO', 'CHOPSUEY'] 
+
+            # looping
+            # 1 - Foods(210, -3100, CHOPSUEY)
+            # food = []
+
+        # RANDOM POSITIONS AND IMAGE AND NAGKAKALAMAN YUNG ARRAY
         if len(food) == 0:
             level += 1
             enemy_speed += .2
-            food_sets += 1
+            # WILL LOOP 3 TIMES
             for i in range(3):
+                # FOODS(x, y, food_choice)
                 good_food = Foods(random.randrange(50, WIDTH - 50),
-                                  random.randrange(-4000, -100), random.choice(food_choice))
+                                  random.randrange(-3000, -100), random.choice(food_choice))
 
+                # GIVEN AMOUNT OF TIME
                 if time.time() > 50000:
-
+                    # ADDING TO FOOD ARRAY
                     food.append(good_food)
 
             for i in range(3):
-                for i in range(food_sets):
-                    bad = Foods(random.randrange(50, WIDTH - 50),
-                                random.randrange(-5000, -100), random.choice(bad_food_choice))
+                bad = Foods(random.randrange(50, WIDTH - 50),
+                            random.randrange(-3000, -100), random.choice(bad_food_choice))
 
-                    if time.time() > 50000:
-                        bad_food.append(bad)
+                if time.time() > 50000:
+                    bad_food.append(bad)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         keys = pygame.key.get_pressed()
 
@@ -319,22 +386,26 @@ def main():
         if keys[pygame.K_LEFT] and player.x - speed > 0:
             player.x -= speed
 
-        for foods in food:
-            foods.move(enemy_speed)
-            if foods.y + foods.get_height() > HEIGHT:
-                lives -= 1
-                food.remove(foods)
+
+
+
+
+
+
+
+
+
 
         for foods in food:
-
             foods.move(enemy_speed)
 
+            # IF COLLIDE (GOOD FOOD) DADAGDAG NG SCORE
             if collide(foods, player):
+                # AVOIDING HIGH SCORE
                 if foods.claimed == False:
                     score += 10
                     foods.claimed = True
 
-                    multiplier += .2
                     food.remove(foods)
 
             if foods.y + foods.get_height() > HEIGHT:
@@ -344,7 +415,7 @@ def main():
 
         for badfoods in bad_food:
 
-            badfoods.move(enemy_speed + .9)
+            badfoods.move(enemy_speed)
             if collide(badfoods, player):
                 lives -= 1
 
@@ -356,7 +427,20 @@ def main():
     pygame.quit()
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 def main_menu():
+    print(time.time())
     running = True
 
     # mixer.music.load(os.path.join('fitness-chasers', 'default_music.mp3'))
@@ -374,8 +458,6 @@ def main_menu():
 
     while running:
 
-        # SHOW BUTTON
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -392,6 +474,14 @@ def main_menu():
         pygame.display.update()
 
     pygame.quit()
+
+
+
+
+
+
+
+
 
 
 def game_over():
@@ -419,8 +509,10 @@ def game_over():
                 game_over_init = True
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_x:
+                if event.key == pygame.K_g:
                     main()
+                if event.key == pygame.K_x:
+                    quit()
 
         pygame.display.update()
 
