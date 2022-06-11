@@ -106,7 +106,7 @@ BASKET = pygame.transform.scale(pygame.image.load(
 
 # INSTRUCTIONS
 INSTRUCTIONS = pygame.transform.scale(pygame.image.load(
-    os.path.join('Start Up Elements', 'INSTRUCTIONS.jpg')), (WIDTH, HEIGHT))
+    os.path.join('Start Up Elements', 'INSTRUCTIONS_UP.jpg')), (WIDTH, HEIGHT))
 
 
 class Items:
