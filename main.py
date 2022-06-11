@@ -9,7 +9,8 @@ pygame.font.init()
 pygame.init()
 
 
-logo = pygame.image.load(os.path.join('Start Up ELements', 'Kaon Ta Logo-2.png')) 
+logo = pygame.image.load(os.path.join(
+    'Start Up ELements', 'Kaon Ta Logo-2.png'))
 WIDTH, HEIGHT = 460, 720
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('KAON TA!!')
@@ -35,25 +36,14 @@ ZAGU = pygame.transform.scale(pygame.image.load(
 KWEK_KWEK = pygame.transform.scale(pygame.image.load(
     os.path.join('fitness-chasers', 'KWEK-KWEK.png')), (45, 45))
 
-CHICHARON= pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'CHICHARON.png')), (45, 45) )
+CHICHARON = pygame.transform.scale(pygame.image.load(
+    os.path.join('fitness-chasers', 'CHICHARON.png')), (45, 45))
 
-CHOPSUEY= pygame.transform.scale(pygame.image.load(
+CHOPSUEY = pygame.transform.scale(pygame.image.load(
     os.path.join('fitness-chasers', 'CHOPSUEY.png')), (45, 45))
 
 MANGO = pygame.transform.scale(pygame.image.load(
     os.path.join('fitness-chasers', 'MANGO.png')), (45, 45))
-
-
-
-# TOAST = pygame.transform.scale(pygame.image.load(
-#     os.path.join('fitness-chasers', 'toast.png')), (80, 80))
-
-# TOMATO = pygame.transform.scale(pygame.image.load(
-#     os.path.join('fitness-chasers', 'ttomato.png')), (80, 80))
-
-# WATER = pygame.transform.scale(pygame.image.load(
-#     os.path.join('fitness-chasers', 'water.png')), (80, 80))
 
 
 # BACKGROUND
@@ -113,6 +103,10 @@ ZAGU_GO = pygame.transform.scale(pygame.image.load(
 # PLAYER'S BASKET
 BASKET = pygame.transform.scale(pygame.image.load(
     os.path.join('fitness-chasers', 'BASKET.png')), (100, 80))
+
+# INSTRUCTIONS
+INSTRUCTIONS = pygame.transform.scale(pygame.image.load(
+    os.path.join('Start Up Elements', 'INSTRUCTIONS.jpg')), (WIDTH, HEIGHT))
 
 
 class Items:
@@ -181,15 +175,16 @@ class Foods(Items):
 
     }
     # YUNG TATLONG ARGUMENTS, NAKA RANDOM LAHAT
+
     def __init__(self, x, y, food_choice):
         super().__init__(x, y)
         # Get the image from random food choice.
 
         #  CHINECHECK NG "FOOD VARIABLE (WHICH IS YUNG RANDOM)" YUNG FOODMAP
         #  NAKADEPENDE SA FOOD VARIABLE KUNG ANO YUNG LALABAS NA PICTURE
-        #  FOR EXAMPLE, MANGO YUNG NAKUHA, 
+        #  FOR EXAMPLE, MANGO YUNG NAKUHA,
 
-        self.item_img, self.type = self.FOOD_MAP[food_choice]['img'], self.FOOD_MAP[food_choice]['type']
+        self.item_img = self.FOOD_MAP[food_choice]['img']
         self.mask = pygame.mask.from_surface(self.item_img)
         self.claimed = False
 
@@ -265,7 +260,6 @@ def main():
     # set ng array for later purposes
     food = []
 
-
     bad_food = []
     lost = False
     food_sets = 2
@@ -273,12 +267,11 @@ def main():
     lost_count = 0
 
     food_choice = ['COCONUT',
-                   'PANCIT', 'SINIGANG', 'CHICHARON', 'MANGO', 'CHOPSUEY'] 
+                   'PANCIT', 'SINIGANG', 'CHICHARON', 'MANGO', 'CHOPSUEY']
 
     bad_food_choice = ["LECHE_FLAN", 'ZAGU', "KWEK_KWEK", "CHICHARON", ]
 
     main_font = pygame.font.SysFont('comicsans', 25)
- 
 
     player = Player(230, 640)
 
@@ -323,17 +316,8 @@ def main():
             lost = True
             lost_count += 1
 
-
-
-
-
-
-
-
-
-
             # # ['COCONUT',
-            #        'PANCIT', 'SINIGANG', 'CHICHARON', 'MANGO', 'CHOPSUEY'] 
+            #        'PANCIT', 'SINIGANG', 'CHICHARON', 'MANGO', 'CHOPSUEY']
 
             # looping
             # 1 - Foods(210, -3100, CHOPSUEY)
@@ -361,40 +345,12 @@ def main():
                 if time.time() > 50000:
                     bad_food.append(bad)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_RIGHT] and player.x + player.get_width() < WIDTH:
             player.x += speed
         if keys[pygame.K_LEFT] and player.x - speed > 0:
             player.x -= speed
-
-
-
-
-
-
-
-
-
-
 
         for foods in food:
             foods.move(enemy_speed)
@@ -427,20 +383,8 @@ def main():
     pygame.quit()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 def main_menu():
-    print(time.time())
+    has_started = False
     running = True
 
     # mixer.music.load(os.path.join('fitness-chasers', 'default_music.mp3'))
@@ -467,21 +411,18 @@ def main_menu():
                 start = buttons[0].check_click(pos)
                 quitted = buttons[1].check_click(pos)
                 if start:
-                    main()
+                    has_started = True
                 if quitted:
                     quit()
+            if has_started:
+                WIN.blit(INSTRUCTIONS, (0, 0))
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_z:
+                        main()
 
         pygame.display.update()
 
     pygame.quit()
-
-
-
-
-
-
-
-
 
 
 def game_over():
