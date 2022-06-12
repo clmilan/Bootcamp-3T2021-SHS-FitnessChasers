@@ -311,7 +311,7 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        if lives <= 4:
+        if lives <= 3:
             lost = True
 
         # RANDOM POSITIONS AND IMAGE AND NAGKAKALAMAN YUNG ARRAY
@@ -372,14 +372,16 @@ def main():
                     food.remove(foods)
 
             if foods.y + foods.get_height() > HEIGHT:
-                lives -= 1
+
                 food.remove(foods)
 
         for badfoods in bad_food:
 
             badfoods.move(enemy_speed)
             if collide(badfoods, player):
-
+                badfood_sound = mixer.Sound(
+                    os.path.join('music', 'badfood_sound.wav'))
+                badfood_sound.play()
                 lives -= 1
 
                 bad_food.remove(badfoods)
