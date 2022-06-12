@@ -266,7 +266,7 @@ def main():
     enemy_speed = .8
 
     food_choice = ['COCONUT',
-                   'PANCIT', 'SINIGANG', 'CHICHARON', 'MANGO', 'CHOPSUEY']
+                   'PANCIT', 'SINIGANG', 'MANGO', 'CHOPSUEY']
 
     bad_food_choice = ["LECHE_FLAN", 'ZAGU', "KWEK_KWEK", "CHICHARON", ]
 
@@ -311,7 +311,7 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        if lives <= 3:
+        if lives <= 0:
             lost = True
 
         # RANDOM POSITIONS AND IMAGE AND NAGKAKALAMAN YUNG ARRAY
