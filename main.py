@@ -243,9 +243,9 @@ def collide(obj1, obj2):
 
 
 def main():
-    main_menu_sound = mixer.Sound(os.path.join(
-        'fitness-chasers', 'game_music.mp3'))
-    main_menu_sound.play()
+    main_game_sound = mixer.Sound(os.path.join(
+        'music', 'game_music.mp3'))
+    main_game_sound.play()
     running = True
     FPS = 60
     clock = pygame.time.Clock()
@@ -385,7 +385,7 @@ def main():
                 bad_food.remove(badfoods)
 
         if lost:
-            main_menu_sound.stop()
+            main_game_sound.stop()
             game_over()
 
     pygame.quit()
@@ -395,8 +395,9 @@ def main_menu():
     has_started = False
     running = True
 
-    # mixer.music.load(os.path.join('fitness-chasers', 'default_music.mp3'))
-    # mixer.music.play(-1)
+    main_menu_sound = mixer.Sound(os.path.join(
+        'music', 'backgroundmusic_sound.wav'))
+    main_menu_sound.play()
 
     WIN.blit(MAIN_MENU_BG, (0, 0))
     WIN.blit(LOGO, (50, 100))
@@ -426,6 +427,7 @@ def main_menu():
                 WIN.blit(INSTRUCTIONS, (0, 0))
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_z:
+                        main_menu_sound.stop()
                         main()
 
         pygame.display.update()
