@@ -19,31 +19,31 @@ pygame.display.set_icon(logo)
 
 # ALL FOODS
 COCONUT = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'COCONUT.png')), (45, 45))
+    os.path.join('fitness-chasers', 'COCONUT.png')), (55, 55))
 
 LECHE_FLAN = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'LECHE FLAN.png')), (45, 45))
+    os.path.join('fitness-chasers', 'LECHE FLAN.png')), (55, 55))
 
 PANCIT = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'PANCIT.png')), (45, 45))
+    os.path.join('fitness-chasers', 'PANCIT.png')), (55, 55))
 
 SINIGANG = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'SINIGANG NA BANGUS.png')), (45, 45))
+    os.path.join('fitness-chasers', 'SINIGANG NA BANGUS.png')), (55, 55))
 
 ZAGU = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'ZAGU.png')), (45, 45))
+    os.path.join('fitness-chasers', 'ZAGU.png')), (55, 55))
 
 KWEK_KWEK = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'KWEK-KWEK.png')), (45, 45))
+    os.path.join('fitness-chasers', 'KWEK-KWEK.png')), (55, 55))
 
 CHICHARON = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'CHICHARON.png')), (45, 45))
+    os.path.join('fitness-chasers', 'CHICHARON.png')), (55, 55))
 
 CHOPSUEY = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'CHOPSUEY.png')), (45, 45))
+    os.path.join('fitness-chasers', 'CHOPSUEY.png')), (55, 55))
 
 MANGO = pygame.transform.scale(pygame.image.load(
-    os.path.join('fitness-chasers', 'MANGO.png')), (45, 45))
+    os.path.join('fitness-chasers', 'MANGO.png')), (55, 55))
 
 
 # BACKGROUND
@@ -188,10 +188,6 @@ class Foods(Items):
         self.mask = pygame.mask.from_surface(self.item_img)
         self.claimed = False
 
-    # def game_over(self):
-    #     FOOD_CHOICES = ['COCONUT', 'KWEK_KWEK',
-    #                 'LECHE_FLAN', 'PANCIT', 'SINIGANG', 'ZAGU']
-
     def move(self, speed):
         self.y += speed
 
@@ -240,14 +236,16 @@ class Button:
 
 
 def collide(obj1, obj2):
+
     offset_x = obj2.x - obj1.x
     offset_y = obj2.y - obj1.y
     return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
 
 
 def main():
-    # mixer.music.load(os.path.join('fitness-chasers', 'game_music.mp3'))
-    # mixer.music.play(-1)
+    main_menu_sound = mixer.Sound(os.path.join(
+        'fitness-chasers', 'game_music.mp3'))
+    main_menu_sound.play()
     running = True
     FPS = 60
     clock = pygame.time.Clock()
@@ -261,10 +259,11 @@ def main():
     food = []
 
     bad_food = []
+    good_food = None
+    first_drop = False
     lost = False
     food_sets = 2
-    enemy_speed = .6
-    lost_count = 0
+    enemy_speed = .8
 
     food_choice = ['COCONUT',
                    'PANCIT', 'SINIGANG', 'CHICHARON', 'MANGO', 'CHOPSUEY']
@@ -312,33 +311,38 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        if lives <= 0:
+        if lives <= 4:
             lost = True
-            lost_count += 1
-
-            # # ['COCONUT',
-            #        'PANCIT', 'SINIGANG', 'CHICHARON', 'MANGO', 'CHOPSUEY']
-
-            # looping
-            # 1 - Foods(210, -3100, CHOPSUEY)
-            # food = []
 
         # RANDOM POSITIONS AND IMAGE AND NAGKAKALAMAN YUNG ARRAY
         if len(food) == 0:
             level += 1
-            enemy_speed += .2
+            enemy_speed += .1
             # WILL LOOP 3 TIMES
-            for i in range(3):
+            for i in range(4):
                 # FOODS(x, y, food_choice)
+                if i <= 1:
+
+                    first_food = Foods(random.randrange(50, WIDTH - 50),
+                                       random.randrange(-610, -100), random.choice(food_choice))
+                    food.append(first_food)
+
+                print('second drop')
                 good_food = Foods(random.randrange(50, WIDTH - 50),
                                   random.randrange(-3000, -100), random.choice(food_choice))
-
                 # GIVEN AMOUNT OF TIME
                 if time.time() > 50000:
                     # ADDING TO FOOD ARRAY
                     food.append(good_food)
 
-            for i in range(3):
+            for i in range(4):
+                print('Third Drop')
+                if i <= 1:
+
+                    first_bad_food = Foods(random.randrange(50, WIDTH - 50),
+                                           random.randrange(-610, -100), random.choice(food_choice))
+                    food.append(first_bad_food)
+
                 bad = Foods(random.randrange(50, WIDTH - 50),
                             random.randrange(-3000, -100), random.choice(bad_food_choice))
 
@@ -359,6 +363,9 @@ def main():
             if collide(foods, player):
                 # AVOIDING HIGH SCORE
                 if foods.claimed == False:
+                    catch_sound = mixer.Sound(
+                        os.path.join('music', 'catch_sound.wav'))
+                    catch_sound.play()
                     score += 10
                     foods.claimed = True
 
@@ -366,18 +373,19 @@ def main():
 
             if foods.y + foods.get_height() > HEIGHT:
                 lives -= 1
-
                 food.remove(foods)
 
         for badfoods in bad_food:
 
             badfoods.move(enemy_speed)
             if collide(badfoods, player):
+
                 lives -= 1
 
                 bad_food.remove(badfoods)
 
         if lost:
+            main_menu_sound.stop()
             game_over()
 
     pygame.quit()
@@ -426,6 +434,9 @@ def main_menu():
 
 
 def game_over():
+    gameover_sound = mixer.Sound(
+        os.path.join('music', 'gameover_sound.wav'))
+    gameover_sound.play()
     running = True
     lost = False
     game_over_img = []
