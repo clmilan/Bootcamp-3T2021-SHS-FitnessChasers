@@ -475,8 +475,5 @@ def game_over():
 
 main_menu()
 # game_over()
-# import random
 
-# list1 = ['aser', 'james', 'hubero', 'carlos', 'celyn', 'mauie']
 
-# print(random.choice(list1))
