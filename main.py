@@ -319,7 +319,7 @@ def main():
             level += 1
             enemy_speed += .1
             # WILL LOOP 3 TIMES
-            for i in range(4):
+            for i in range(3):
                 # FOODS(x, y, food_choice)
                 if i <= 1:
 
@@ -335,7 +335,7 @@ def main():
                     # ADDING TO FOOD ARRAY
                     food.append(good_food)
 
-            for i in range(4):
+            for i in range(5):
                 print('Third Drop')
                 if i <= 1:
 
